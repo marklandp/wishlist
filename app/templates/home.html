@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+
+{% block js %}
+{% endblock %}
+
+
+{% block main %}
+<div id="home">
+<h1>Welcome to the Wishlist System v1.0</h1>
+<p>Please <a href="{{url_for('signin')}}">Login Here</a> or <a href="{{url_for('register')}}">Register</a></p>
+</div>  
+{% endblock %}

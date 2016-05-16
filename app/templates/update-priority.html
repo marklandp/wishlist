@@ -1,0 +1,15 @@
+<div id="priority">
+      <form action="{{ url_for('priority', id=id ) }}" method="post">
+        <table>
+        <tr><td><p>Update Priority:</p></td><td> <label for="piority-val">Select Rating/Priority:</label>
+      <select class="form-control" id="priority-val" name="priority">
+        <option value="1">One star</option>
+        <option value="2">Two stars</option>
+        <option value="3">Three stars</option>
+        <option value="4">Four stars</option>
+        <option value="5">Five stars</option>
+      </select></td></tr>
+        <tr><td colspan="2"><input class="btn btn-danger" type="submit" value="Update"></td></tr>
+        </table>
+      </form>
+</div>

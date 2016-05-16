@@ -1,0 +1,70 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>{% block title %}620011825{% endblock %}</title>
+  
+  <!--<meta property="og:url"                content="http://info3180-project4-marklandp.c9users.io:8080/wishlist/{{g.user.email}}" />-->
+  <meta property="og:type"               content="article" />
+  <!--<meta property="fb:app_id"             content="261930147473251" />-->
+  <meta property="og:title"              content="My Wishlist" />
+  <meta property="og:description"        content="This is my wishlist. Please purchase an item as a gift for me if you are able to." />
+  <meta property="og:image"              content="http://img15.deviantart.net/d031/i/2012/009/8/d/wishlist_by_isami_magda_chan-d4ltbkd.png" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="/static/favicon.ico">
+
+  <!-- HTML5 shim, for IE 6-8 support of HTML elements -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+  <!--<link rel="stylesheet" href="/static/css/bootstrap-theme.min.css">-->
+  <!--<script src="http://ajax.googleapis.com/ajax/angularjs/1.4.8/angular.min.js"></script>-->
+  <link rel="stylesheet/less" href="/static/css/main.less">
+  <link rel="stylesheet" href="/static/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+  
+  {% block css %}{% endblock %}
+
+  <!-- Rather use `less.js` to dynamically compile your `stylesheet/less` files? -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.4.1/less.min.js"></script>
+  <script>window.less || document.write('<script src="/static/js/less.js">\x3C/script>');</script>
+  <script src="/static/js/jquery-1.11.2.min.js"></script>
+  
+  <script type="text/javascript" src="/static/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  <!--Google plus-->
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+  <!--<script src="/static/js/jquerytools.js"></script>-->
+  <script src="/static/js/site.js"></script>
+  <link rel="stylesheet" href="/static/css/ihover.min.css">
+  <!-- Need Modernizr? Uncomment the following script. -->
+  <!-- <script src="/static/js/modernizr.js"></script> -->
+  <!--Fancybox-->
+  <link rel="stylesheet" href="/static/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" type="text/css" media="screen" />
+  <script type="text/javascript" src="/static/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+  <script type="text/javascript" src="/static/source/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
+
+  <link rel="stylesheet" href="/static/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+  <script type="text/javascript" src="/static/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+
+</head>
+
+<body>
+
+  <!--<header>-->
+  <!--  {% include "header.html" %}-->
+  <!--</header>-->
+
+  <div id="main" role="main">
+    {% block main %}{% endblock %}
+  </div>
+
+  <footer>
+    {% include "footer.html" %}
+  </footer>
+  {% block js %}{% endblock %}
+</body>
+</html>

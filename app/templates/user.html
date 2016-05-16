@@ -1,0 +1,240 @@
+{% extends "base.html" %}
+
+
+{% block js %}
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '261930147473251',
+      xfbml      : true,
+      version    : 'v2.6'
+    });
+   
+  };
+   
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.6&appId=261930147473251";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+
+</script>
+{% endblock %}
+
+
+{% block main %}
+  <div id="fb-root"></div>
+  <div class="body">
+  <div class="cont">
+  <div class="head">
+    <a class="fancy" href="{{user['image']}}"><img id="dp" class="img-circle" src="{{ user['image'] }}" height="200" width="200" ></a>
+    <div class="profile_name">
+      <h1><a id="myname" href="{{url_for('home')}}">{{user['fname']}}  {{user['lname']}}</a> <span><a class="btn btn-danger" role="button" href="{{ url_for('signout') }}">Sign Out</a></span></h1>
+    </div>
+  </div>
+  <div class="p_datebox content">
+    <p>Profile added on: {{ datestr }}</p>
+  </div>
+  <div class="p_content content">
+    <p>
+      Email: {{user['email']}}<br />
+      Sex: {{user['sex']}}<br />
+      Age: {{user['age']}}<br />
+    </p>
+    </div>
+    <div class="p_content wishlist">
+    <h1 style="width:98%;">{{user['fname']}}'s Wishlist<span style="float:right;"><a id="showbought" class="flashk" href="javascript:void(0);"><em>View bought items</em></a><a class="fancy flashk fancybox.ajax" href="{{url_for('about')}}"><em>Instructions</em></a><a class="fancy" href="#addwish"><img title="Click to add new wish" src="/static/product-fav-icon.png" width="30"></a></span></h1>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-success alert-dismissable" style="width:98%;">
+          <a class="close" href="javascript:void(0);">×</a>
+            {{message}}
+        </div>
+      {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <div id ="addwish" style="display:none;">
+    <form action="{{ url_for('addWish') }}" method="post">
+      {{ form.hidden_tag() }}
+      <table style="width:98%;">
+        <tr><td style="width:101px;">Web Address:</td><td>{{ form.url(placeholder="Enter Web Address Here", class_="form-control") }}</td><td>Please use this field to add items to your wishlist<br> by pasting the URL of the webpage that has the item you want.</td></tr>
+        {% if form.url.errors|length != 0 %}
+        <tr><td colspan="3"><div class="flash">
+        {% for message in form.url.errors %}
+        {{ message }}
+        {% endfor %}
+        </div></td></tr>
+        {% endif %}
+        <tr><td colspan="3"><div class="imgBtn"><input type="image" src="/static/add-to-wishlist.jpg" alt="submit" style="height:24px;"/></div></td></tr>
+      </table>
+      </form>
+      </div>
+      {% if form.url.errors|length == 0 and error != "User has no wishes" %}
+      <div class="share">
+      <div class="g-plus" data-action="share" data-height="24" data-href="{{url_for('profile', id=g.user.id)}}"></div>
+      </div>
+      <div
+      class="fb-like share"
+      data-share="true"
+      data-width="250"
+      data-show-faces="true" style="float:left; margin:10px;">
+      </div>
+      <div class="share"><a href="https://twitter.com/intent/tweet?button_hashtag=wishlistSystem&text=Take%20a%20look%20at%20my%20wishlist" class="twitter-hashtag-button" data-size="large" data-url="http://info3180-project4-marklandp.c9users.io:8080/api/user/{{g.user.id}}/wishlist" data-dnt="true">Tweet #wishlistSystem</a></div>
+      <div class="share"> <button id="share-btn" class="btn btn-danger btn-md fancy" href="#share">Share wishlist</button> </div>
+     <hr style="width:95%; clear:left;"/>
+     {% endif %}
+     <form class="form-inline" role="form" id="updateView" method="POST" action="{{url_for('profile', id=g.user.id)}}">
+      <div class="form-group">
+        <label for="category">Select filter category</label>
+        <select class="form-control" id="category">
+          <option value="All">All</option>
+          <option value="Computer/Electronics">Computer/Electronics</option>
+          <option value="Books/Education">Books/Education</option>
+          <option value="Clothing">Clothing</option>
+          <option value="Household">Household</option>
+          <option value="Equipment/Tools">Equipment/Tools</option>
+          <option value="Miscellaneous">Miscellaneous</option>
+      </select>
+      </div>
+      <button type="submit" id="update-view" class="btn btn-primary">Update View</button>
+      <div class="form-group"><p>Choose a category and click "update view" button to filter entries to the selected category only</p></div>
+    </form>
+    <hr style="width:95%; clear:both;">
+      <div id="wishes">
+        {% if error %}
+          <h1>{{error}}</h1>
+        {% endif %}
+        {% for wish in wishes %}
+          {% if wish['bought'] == "0" or wish['bought'] is none %}
+            <div class="needed">
+            <div id="{{wish['id']}}" class="ih-item square colored effect9 right_to_left"><a href="{{wish['url']}}" target="_blank">
+            <div class="img"><img src="{{wish['thumbnail']}}" alt="img" height="235" width="316"></div>
+            <div class="info">
+            <div class="info-back">
+              <h3>{{wish['title']}}</h3>
+              <p>{{wish['description']}}</p></a>
+              <p class="raise">Mark item as bought: <input class="entry2" type="checkbox" name="wish" value="{{wish['id']}}"></p>
+              <table class="raise" style="margin:auto;color:white;margin-bottom:5px;">
+                <thead>
+                  <tr>
+                    <td>Rating</td><td>Delete?</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <a class="fancy fancybox.ajax" href="{{url_for('priority', id=wish['id'])}}">
+                      <div class="rating">
+                        {% if wish['rating'] == "1" or wish['rating'] is none %}
+                        <img class="onestarrating" src="{{url_for('static', filename='5-Star_rating_system.png')}}" height="100" width="100"/> 
+                        {% endif %}
+                        {% if wish['rating'] == "2" %}
+                        <img class="twostarrating" src="{{url_for('static', filename='5-Star_rating_system.png')}}" height="100" width="100"/> 
+                        {% endif %}
+                        {% if wish['rating'] == "3" %}
+                        <img class="threestarrating" src="{{url_for('static', filename='5-Star_rating_system.png')}}" height="100" width="100"/> 
+                        {% endif %}
+                        {% if wish['rating'] == "4" %}
+                        <img class="fourstarrating" src="{{url_for('static', filename='5-Star_rating_system.png')}}" height="100" width="100"/> 
+                        {% endif %}
+                        {% if wish['rating'] == "5" %}
+                        <img class="fivestarrating" src="{{url_for('static', filename='5-Star_rating_system.png')}}" height="100" width="100"/> 
+                        {% endif %}
+                      </div></a>
+                    </td><td><input class="entry" type="checkbox" name="wish" value="{{wish['id']}}"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            </div>
+            </div>
+            </div>
+          {% endif %}
+          {% if wish['bought'] == "1" %}
+            <div class="bought" style="display:none;">
+            <div id="{{wish['id']}}" class="ih-item square colored effect9 right_to_left red"><a href="{{wish['url']}}" target="_blank">
+            <div class="img"><img src="{{wish['thumbnail']}}" alt="img" height="235" width="316"></div>
+            <div class="info">
+            <div class="info-back">
+              <h3>{{wish['title']}}</h3>
+              <p>{{wish['description']}}</p>
+              <p><strong style="color:red;">This item was previously bought</strong></p></a>
+              <table class="raise" style="margin:auto;color:white;margin-bottom:5px;">
+                <thead>
+                  <tr>
+                    <td>Rating</td><td>Delete?</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="rating">
+                        {% if wish['rating'] == "1" or wish['rating'] is none %}
+                        <img class="onestarrating" src="{{url_for('static', filename='5-Star_rating_system.png')}}" height="100" width="100"/> 
+                        {% endif %}
+                        {% if wish['rating'] == "2" %}
+                        <img class="twostarrating" src="{{url_for('static', filename='5-Star_rating_system.png')}}" height="100" width="100"/> 
+                        {% endif %}
+                        {% if wish['rating'] == "3" %}
+                        <img class="threestarrating" src="{{url_for('static', filename='5-Star_rating_system.png')}}" height="100" width="100"/> 
+                        {% endif %}
+                        {% if wish['rating'] == "4" %}
+                        <img class="fourstarrating" src="{{url_for('static', filename='5-Star_rating_system.png')}}" height="100" width="100"/> 
+                        {% endif %}
+                        {% if wish['rating'] == "5" %}
+                        <img class="fivestarrating" src="{{url_for('static', filename='5-Star_rating_system.png')}}" height="100" width="100"/> 
+                        {% endif %}
+                      </div>
+                    </td><td><input class="entry" type="checkbox" name="wish" value="{{wish['id']}}"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            </div>
+            </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+        {% if share %}
+        <div id="share" style="display:none; width:275px;">
+					<form role='form' method='POST' action="{{url_for('share', id=g.user.id)}}" enctype='multipart/form-data'>
+						<div class='form-group'>
+						  <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                  {{ share.name(placeholder="Enter Recipient's Name", class_="form-control") }}                                       
+              </div>
+              <div class="lash">
+                {% for message in share.name.errors %}
+                {{ message }}
+                {% endfor %}
+              </div>
+						</div>
+						<div class='form-group'>
+						  <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                  {{ share.email(placeholder="Enter Comma Seperated Emails", class_="form-control") }}                                       
+              </div>
+              <div class="lash">
+                {% for message in share.email.errors %}
+                {{ message }}
+                {% endfor %}
+              </div>
+						</div>
+						<div class='form-group'>
+								{{ share.send(class_="form-control") }}
+						</div>
+					</form>
+			</div>
+			{% endif %}
+      </div>
+      <span class="clear"></span>
+    </div>
+    <div>&nbsp;</div>
+    </div>
+  </div>
+{% endblock %}

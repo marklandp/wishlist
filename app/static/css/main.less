@@ -1,0 +1,407 @@
+@import "less/mixins.less";
+
+@pink: #be1a8d;
+
+.custom-highlight{
+    background: @pink;
+    color: #fff;
+    text-shadow: -1px 1px 1px darken(@pink, 15%);
+}
+
+/* Apply custom highlight */
+::-moz-selection{ .custom-highlight; }
+::selection { .custom-highlight; }
+
+
+
+body {
+    width:100%;
+    background: url('/static/background.png') no-repeat fixed center center;
+    background-size: cover;
+    // http://i.imgur.com/Eor57Ae.jpg
+}
+
+
+.head {
+  position: relative;
+  // background-color: #adffff;
+  height:100px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+
+#main {
+  width:1200px;
+  margin: 5px auto; 
+}
+
+#home {
+  color:white;
+}
+#home a {
+  color:red !important;
+}
+
+#url {
+  width: 200px;
+}
+
+#images {
+  width: 850px;
+  overflow: auto;
+  padding-bottom:20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.imgBtn {
+  height:24px;
+  width:124px;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  border-radius: 12px;
+  overflow:hidden;
+}
+
+.imgBtn img {
+  top: 0px;
+  left: 0px;
+}
+
+
+.cont {
+  margin: 20px auto;
+  width: 1200px;
+  // background-color:lightCyan;
+  height: auto;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+
+.content {
+  clear: left;
+  width: 320px;
+  margin-left: 234px;
+  padding-left: 20px;
+  // background-color: lightSkyBlue;
+}
+
+img#dp {
+  vertical-align: top;
+  position: relative;
+  top: 20px;
+  left: 20px;
+  -webkit-border-top-left-radius: 10px;
+  -moz-border-radius-topleft: 10px;
+  border-top-left-radius: 10px;
+}
+
+.flash {
+  color: red;//#FBB0B0;
+  padding: 10px;
+  width: 200px;
+}
+
+.flashk {
+  color: red !important;//#FBB0B0;
+  padding: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  
+}
+
+
+a:hover, a:visited, a:link, a:active
+{
+    text-decoration: none !important;
+}
+
+
+.lash {
+  color: red;//#FBB0B0;
+  padding: 2px;
+}
+
+.profile_name {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 0;
+  position: relative;
+  left: 20px;
+  top: 20px;
+  width: 69%;
+}
+
+td {
+    padding-left: 10px;
+    padding-top:10px;
+}
+
+.profile_name h1{
+  padding-left: 20px;
+}
+
+.p_datebox {
+  // border: 1px solid black;
+}
+
+.p_content {
+  // border: 1px solid black;
+  margin-top: 17px;
+}
+
+.prof {
+  // background-color:#adffff;
+  width: 550px;
+  margin: 20px auto;
+  padding: 15px; 
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+
+.wishlist {
+  // clear: both;
+  width: 96%;
+  margin: auto;
+  padding-left: 20px;
+  background-color: white;//lightSkyBlue;
+  margin-top: 40px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+
+.wish {
+  float:left;
+  position: relative;
+  height: 105px;
+  border-bottom: solid 2px black;
+  margin-bottom: 10px;
+}
+
+.first {
+  width: 5%;
+  display: flex;
+  justify-content:center;
+  align-content:center;
+  flex-direction:column;
+}
+
+.sec {
+  width: 15%;
+}
+
+#wishes img {
+  top: 0px;
+  left: 0px;
+}
+
+.thd {
+  width: 78%;
+}
+
+.fancy{
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.fancy:hover {
+  text-decoration: none;
+  color: black;
+}
+
+#myname{
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#myname:hover {
+  text-decoration: none;
+  color: red;
+}
+
+.rating{
+    width:100px;
+    height:20px;
+    overflow:hidden;
+    position: relative;
+    margin-bottom: 5px;
+}
+
+.onestarrating {
+    position: absolute;
+    top: -80px !important;
+    left: 0px;
+}
+.twostarrating {
+    position: absolute;
+    top: -60px !important;
+    left: 0px;
+}
+.threestarrating {
+    position: absolute;
+    top: -40px !important;
+    left: 0px;
+}
+.fourstarrating {
+    position: absolute;
+    top: -20px !important;
+    left: 0px;
+}
+.fivestarrating {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.ih-item.square.colored.effect9.right_to_left {
+  float: left;
+  margin-right: 30px;
+  margin-bottom: 30px;
+  width: 252px;
+  height: 250px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  box-shadow: 0px 0px 10px #124cc9;//#ff1a1a;
+  -moz-box-shadow: 0px 0px 10px #124cc9;//#ff1a1a;
+  -webkit-box-shadow: 0px 0px 10px #124cc9;//#ff1a1a;
+}
+
+.ih-item.square.colored.effect9.right_to_left.red {
+  box-shadow: 0px 0px 10px #C91B12;//#ff1a1a;
+  -moz-box-shadow: 0px 0px 10px #C91B12;//#ff1a1a;
+  -webkit-box-shadow: 0px 0px 10px #C91B12;//#ff1a1a;
+}
+
+.raise:hover {
+  z-index: 5;
+}
+
+.info-back {
+  overflow-y: auto;
+  height: 100%;
+  
+}
+
+.share {
+  float: left;
+  margin: 10px;
+  width: 230px;
+}
+
+#share-btn {
+  color: white;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+span.clear { clear: left; display: block; }
+
+address {
+  width:1200px;
+  margin:auto;
+  font-style:italic;
+  color:#fff;
+}
+
+/*    --------------------------------------------------
+	:: Login Section
+	-------------------------------------------------- */
+#login {
+    padding-top: 20px
+}
+#login .form-wrap {
+    width: 35%;
+    margin: 0 auto;
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+#login h1 {
+    color: #1fa67b;
+    font-size: 18px;
+    text-align: center;
+    font-weight: bold;
+    padding-bottom: 10px;
+    margin-top: 10px;
+}
+#login .form-group {
+    margin-bottom: 10px;
+}
+#login .checkbox {
+    margin-bottom: 10px;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+#login .checkbox.show:before {
+    content: '\e013';
+    color: #1fa67b;
+    font-size: 10px;
+    margin: 1px 0 0 3px;
+    position: absolute;
+    pointer-events: none;
+    font-family: 'Glyphicons Halflings';
+}
+#login .checkbox .character-checkbox {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    vertical-align: middle;
+    display: inline-block;
+}
+#login .checkbox .label {
+    color: #6d6d6d;
+    font-size: 13px;
+    font-weight: normal;
+}
+#login .btn.btn-custom {
+    font-size: 14px;
+	margin-bottom: 20px;
+}
+
+/*    --------------------------------------------------
+	:: Inputs & Buttons
+	-------------------------------------------------- */
+.form-control {
+  color: #212121;
+}
+.btn-custom {
+  color: #fff;
+	background-color: #1fa67b;
+}
+.btn-custom:hover,
+.btn-custom:focus {
+    color: #fff;
+}

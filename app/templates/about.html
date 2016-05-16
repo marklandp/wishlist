@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+
+{% block js %}
+{% endblock %}
+
+
+{% block main %}
+<ol>
+    <li><strong>Add a wish</strong></li>
+    <ul>
+        <li>To add a wish, click on this icon <img src="/static/product-fav-icon.png" width="20"></li>
+    </ul>
+    <li><strong>Update rating</strong></li>
+    <ul>
+        <li>To update a wish's rating, simply click on the stars and select the new rating. Higher rated wishes are displayed at the top of the list</li>
+    </ul>
+    <li><strong>Delete a wish</strong></li>
+    <ul>
+        <li>To delete a wish, click on the checkbox next to the wish and confirm your action. The list will be updated on confirm</li>
+    </ul>
+    <li><strong>Marking items as bought and viewing them</strong></li>
+    <ul>
+        <li>Marking an item as bought removes it from the main wishlist view</li>
+        <li>Click on 'view bought items' to load items marked as bought. Click on the link again to load current/main wishlist</li>
+    </ul>
+    <li><strong>Catogories</strong></li>
+    <ul>
+        <li>When you add a wish you select the appropriate category of the item</li>
+        <li>After your homepage laods, click on the dropdown beside "select filter category", choose a category and click update view</li>
+        <li>You will be presented with items in your wishlist from the selected category only</li>
+        <li>Bear in mind that you must click "view bought items" to see items marked as bought as they will not be in the main view</li>
+    </ul>
+    <li><strong>Miscellaneous</strong></li>
+    <ul>
+        <li>Hover over a thumbnail to view further information about that wish, such as title,desc,rating and reveal the delete option. You may have to scroll down.</li>
+        <li>Click on a thumbnail to visit the original page that the item was viewed on. You may be able to purchase the item there.</li>
+        <li>Click on "share wishlist" to email wishlist URL to friends/family. Social media buttons share to respective websites.</li>
+        <li>You cannot add the same item/URL twice</li>
+        <li>You cannot visit the registration page while logged in</li>
+        <li>All confirmatory messages can be dismissed by clicking on the x on the far right side of the messages</li>
+        <li>If you click on an image or link and it says content unavailable, jus wait a  second and retry</li>
+        <li>Click on your profile image to view your full-sized photo</li>
+        <li>Click on your name at anytime to return to your home screen</li>
+    </ul>
+</ol>
+{% endblock %}

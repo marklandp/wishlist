@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+
+{% block js %}
+<script>
+function showPassword() {
+    
+    var key_attr = $('#password').attr('type');
+    
+    if(key_attr != 'text') {
+        
+        $('.checkbox').addClass('show');
+        $('#password').attr('type', 'text');
+        
+    } else {
+        
+        $('.checkbox').removeClass('show');
+        $('#password').attr('type', 'password');
+        
+    }
+    
+}
+</script>
+{% endblock %}
+
+{% block main %}
+<section id="login">
+    <div class="container">
+    	<div class="row">
+    	    <div class="col-xs-12">
+        	    <div class="form-wrap">
+                <h1>Log in with your email account</h1>
+                    {% with messages = get_flashed_messages() %}
+                      {% if messages %}
+                        {% for message in messages %}
+                          <div class="alert alert-info alert-dismissable">
+                            <a class="close" href="">×</a>
+                              {{message}}
+                          </div>
+                        {% endfor %}
+                      {% endif %}
+                    {% endwith %}
+                    <form role="form" action="{{ url_for('signin') }}" method="post" id="login-form">
+                      {{ form.hidden_tag() }}
+                        <div class="form-group">
+                            <div class="input-group">
+                              <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                {{ form.email(placeholder="Enter Email", class_="form-control") }}                                       
+                            </div>
+                            <div class="lash">
+                              {% for message in form.email.errors %}
+                              {{ message }}
+                              {% endfor %}
+                          </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                              <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                {{ form.password(placeholder="Enter Password", class_="form-control") }}
+                            </div>
+                            <div class="lash">
+                              {% for message in form.password.errors %}
+                              {{ message }}
+                              {% endfor %}
+                          </div>
+                        </div>
+                        <div class="checkbox">
+                            <span class="character-checkbox" onclick="showPassword()"></span>
+                            <span class="label">Show password</span>
+                        </div>
+                        <input type="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Sign In">
+                    </form>
+                    <p>Don&#39;t have an account? <a href="{{url_for('register')}}">Register Here.</a></p>
+        	    </div>
+    		</div> <!-- /.col-xs-12 -->
+    	</div> <!-- /.row -->
+    </div> <!-- /.container -->
+</section>
+{% endblock %}

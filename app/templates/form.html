@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+
+
+{% block js %}
+<script>
+function showPassword() {
+    
+    var key_attr = $('#password').attr('type');
+    var key_attr2 = $('#confirmp').attr('type');
+    
+    if(key_attr != 'text' && key_attr2 != 'text') {
+        
+        $('.checkbox').addClass('show');
+        $('#password').attr('type', 'text');
+        $('#confirmp').attr('type', 'text');
+        
+    } else {
+        
+        $('.checkbox').removeClass('show');
+        $('#password').attr('type', 'password');
+        $('#confirmp').attr('type', 'password');
+        
+    }
+    
+}
+
+$(document).on('change', '.btn-file :file', function() {
+  var input = $(this),
+      numFiles = input.get(0).files ? input.get(0).files.length : 1,
+      label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+  input.trigger('fileselect', [numFiles, label]);
+});
+
+$(document).ready( function() {
+    $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
+        
+        var input = $(this).parents('.input-group').find(':text'),
+            log = numFiles > 1 ? numFiles + ' files selected' : label;
+        
+        if( input.length ) {
+            input.val(log);
+        } else {
+            if( log ) alert(log);
+        }
+        
+    });
+});
+</script>
+{% endblock %}
+
+{% block main %}
+<section id="login">
+    <div class="container">
+    	<div class="row">
+    	    <div class="col-xs-12">
+        	    <div class="form-wrap">
+                <h1>Register with appropriate data below</h1>
+                    {% with messages = get_flashed_messages() %}
+                      {% if messages %}
+                        {% for message in messages %}
+                          <div class="alert alert-success alert-dismissable">
+                            <a class="close" href="">×</a>
+                              {{message}}
+                          </div>
+                        {% endfor %}
+                      {% endif %}
+                    {% endwith %}
+                    <form role="form" action="{{ url_for('register') }}" method="post" id="register-form">
+                      {{ form.hidden_tag() }}
+                        <div class="form-group">
+                            <div class="input-group">
+                              <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                {{ form.fname(placeholder="Enter First Name", class_="form-control") }} <span class="input-group-addon lash">*</span>                                     
+                            </div>
+                            <div class="lash">
+                              {% for message in form.fname.errors %}
+                              {{ message }}
+                              {% endfor %}
+                          </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                              <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                {{ form.lname(placeholder="Enter Last Name", class_="form-control") }} <span class="input-group-addon lash">*</span>                                     
+                            </div>
+                            <div class="lash">
+                              {% for message in form.lname.errors %}
+                              {{ message }}
+                              {% endfor %}
+                          </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                              <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                {{ form.email(placeholder="Enter Email", class_="form-control") }} <span class="input-group-addon lash">*</span>                                     
+                            </div>
+                            <div class="lash">
+                              {% for message in form.email.errors %}
+                              {{ message }}
+                              {% endfor %}
+                          </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                              <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                {{ form.confirme(placeholder="Confirm Email", class_="form-control") }} <span class="input-group-addon lash">*</span>                                     
+                            </div>
+                            <div class="lash">
+                              {% for message in form.confirme.errors %}
+                              {{ message }}
+                              {% endfor %}
+                          </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                              <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                {{ form.password(placeholder="Enter Password", class_="form-control") }}<span class="input-group-addon lash">*</span>
+                            </div>
+                            <div class="lash">
+                              {% for message in form.password.errors %}
+                              {{ message }}
+                              {% endfor %}
+                          </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                              <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                {{ form.confirmp(placeholder="Confirm Password", class_="form-control") }}<span class="input-group-addon lash">*</span>
+                            </div>
+                            <div class="lash">
+                              {% for message in form.confirmp.errors %}
+                              {{ message }}
+                              {% endfor %}
+                          </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                              <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                {{ form.age(placeholder="Ages 10 to 85", class_="form-control") }}<span class="input-group-addon lash">*</span>
+                            </div>
+                            <div class="lash">
+                              {% for message in form.age.errors %}
+                              {{ message }}
+                              {% endfor %}
+                          </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                              <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                {{ form.sex(class_="form-control") }}<span class="input-group-addon lash">*</span>
+                            </div>
+                            <div class="lash">
+                              {% for message in form.sex.errors %}
+                              {{ message }}
+                              {% endfor %}
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+                            <span class="input-group-btn">
+                            <span class="btn btn-success btn-file">
+                              Browse...{{ form.image(class_="form-control") }}
+                              <!--Browse… <input multiple="" type="file">-->
+                            </span>
+                            </span>
+                            <input class="form-control" readonly type="text" placeholder="Upload profile image"><span class="input-group-addon lash">*</span>
+                          </div>
+                            <div class="lash">
+                              {% for message in form.image.errors %}
+                              {{ message }}
+                              {% endfor %}
+                          </div>
+                        </div>
+                        <div class="checkbox">
+                            <span class="character-checkbox" onclick="showPassword()"></span>
+                            <span class="label">Show password</span>
+                        </div>
+                        <input type="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Register">
+                    </form>
+                    <p>Already have an account? <a href="{{url_for('signin')}}">Sign in</a></p>
+        	    </div>
+    		</div> <!-- /.col-xs-12 -->
+    	</div> <!-- /.row -->
+    </div> <!-- /.container -->
+</section>
+{% endblock %}

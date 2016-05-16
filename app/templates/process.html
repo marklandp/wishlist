@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+
+{% block js %}
+{% endblock %}
+
+
+{% block main %}
+  <div id="images" >
+    <img id="dp" class="img-circle" src="{{ user['image'] }}" height="200" width="200">
+    <div class="profile_name">
+      <h1><a id="myname" href="{{url_for('home')}}">{{user['fname']}}  {{user['lname']}}</a></h1>
+    </div>
+  <div class=" wishlist">
+      <h2>Customise your Wish</h2>
+      <h4>You can accept the title and description pulled from the URL or you can edit to your liking!</h4>
+      <table>
+      <form action="/api/user/{{user['id']}}/wishlist" method=post>
+      <input type="hidden" name="url" value="{{url}}"> 
+      <input id="thumb" type="hidden" name="thumb" value=""> 
+      <input id="bought" type="hidden" name="bought" value="0"> 
+      <tr><td><strong>Title:</strong></td><td colspan="2"> {{title}}</td></tr>
+      <tr><td><strong>Edit Title:</strong></td><td colspan="2"><input type="text" name="title" class="form-control" value="{{title}}" style="width:550px;" maxlength="120"></td></tr>
+      <tr><td><strong>Description:</strong></td><td colspan="2"> {{description}}</td></tr>
+      <tr><td><strong>Edit Description:</strong></td><td colspan="2"><textarea name="description" rows="5" class="form-control" maxlength="199">{{description[0:199]}}</textarea></td></tr>
+      <tr><td><strong>Select Rating:</strong></td><td><select class="form-control" name="priority">
+        <option value="1">One star </option>
+        <option value="2">Two stars </option>
+        <option value="3">Three stars </option>
+        <option value="4">Four stars </option>
+        <option value="5">Five stars </option>
+      </select></td><td><p><strong>This can be changed/updated later</strong></p></td></tr>
+      <tr><td><strong>Category:</strong></td><td><select class="form-control" id="category" name="category">
+          <option value="Computer/Electronics">Computer/Electronics</option>
+          <option value="Books/Education">Books/Education</option>
+          <option value="Clothing">Clothing</option>
+          <option value="Household">Household</option>
+          <option value="Equipment/Tools">Equipment/Tools</option>
+          <option value="Miscellaneous">Miscellaneous</option>
+      </select></td><td><strong>Select the appropriate category for your wish from the dropdown</strong></td></tr>
+      <tr><td><strong>Thumbnail:</strong></td><td><img id="thumbnail" alt="thumbnail" src="" height="150" width="200"></td><td><strong>This is the image you chose. <a class="flash" id="fancyprocess" href="#thumbnails">Choose a new image.</a></strong></td></tr>
+      <tr><td colspan="3"><div class="imgBtn"><input type="image" src="/static/add-to-wishlist.jpg" alt="submit" style="height:24px;"/></div></tr>
+      </form>
+      </table>
+      <div id="thumbnails" style="display:none;">
+      {% for image in images %}
+      <img class="choose" src="{{image}}" height="150" width="150">
+      {% endfor %}
+      </div>
+    <div>&nbsp;</div>
+  </div>
+  <div>&nbsp;</div>
+  </div>
+{% endblock %}

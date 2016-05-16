@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+
+{% block js %}
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '261930147473251',
+      xfbml      : true,
+      version    : 'v2.6'
+    });
+   
+  };
+   
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.6&appId=261930147473251";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+ 
+  
+</script>
+{% endblock %}
+
+
+{% block main %}
+  <div id="fb-root"></div>
+  <div class="body">
+  <div class="cont">
+  <div class="head">
+    <a class="fancy" href="{{user['image']}}"><img id="dp" src="{{ user['image'] }}" height="200" width="200" style="-webkit-border-top-left-radius: 10px;
+      -moz-border-radius-topleft: 10px;
+      border-top-left-radius: 10px;"></a>
+    <div class="profile_name">
+      <h1>{{user['fname']}}  {{user['lname']}}'s Wishlist</h1>
+    </div>
+  </div>
+  <div class="p_content content" style="margin-bottom:55px;width:69%;">
+    <p>
+      Please help me to clear some items off my wishlist. Any and all help is welcomed and appreciated!<br>If you wish to purchase an item for me, click on the thumbnail and you will be redirected to the original webpage with the item.<br> <em>These items are rated on a 5 star system. The more stars, the more important it is for me to get the item.</em>
+    </p>
+    </div>
+    <div class="p_content wishlist">
+      {% if error != "User has no wishes" %}
+      <h3><em>Please share my wishlist with other family members or friends we have in common.</em></h3>
+      <div class="share">
+      <div class="g-plus" data-action="share" data-height="24" data-href="http://info3180-project4-marklandp.c9users.io:8080/api/user/{{g.user.id}}/wishlist"></div>
+      </div>
+      <div
+      class="fb-like share"
+      data-share="true"
+      data-width="250"
+      data-show-faces="true" style="float:left; margin:10px;">
+      </div>
+      <div class="share"><a href="https://twitter.com/intent/tweet?button_hashtag=wishlistSystem&text=Take%20a%20look%20at%20my%20wishlist" class="twitter-hashtag-button" data-size="large" data-url="http://info3180-project4-marklandp.c9users.io:8080/api/user/{{g.user.id}}/wishlist" data-dnt="true">Tweet #wishlistSystem</a></div>
+      <div class="share"> <a class="flash" target="_blank" href="mailto:name1@mail.com?subject=Hey!%20Checkout%20my%20wishlist!&amp;body=Hey%20Friend%3A%0A%0Acheck%20out%20my%20wishlist%20at%20the%20following%20address%3A%0Ahttp%3A%2F%2Finfo3180-project4-marklandp.c9users.io%3A8080%2Fapi%2Fuser%2F{{(user['id'])}}%2Fwishlist.%20Please%20help%20me%20to%20get%20some%20of%20these%20things%20off%20my%20list!%0A%20%0AThank%20you!">Share wishlist</a> </div>
+     <hr style="width:95%; clear:left;"/>
+      {% endif %}
+      <div id="wishes">
+        {% if error %}
+          <h1>{{error}}</h1>
+        {% endif %}
+        <table style="width:95%">
+          {% for wish in wishes %}
+            {% if wish['bought'] == "0" or wish['bought'] is none %}
+              <tr><td><a href="{{wish['url']}}" target="_blank"><img src="{{wish['thumbnail']}}" height="100" width="100"></a></td><td><p><strong>Title:</strong>{{wish['title']}}</p><p><strong>Description:</strong>{{wish['description']}}</p></td>
+              <td>
+                <div class="rating">
+                  {% if wish['rating'] == "1" or wish['rating'] is none %}
+                  <img class="onestarrating" src="{{url_for('static', filename='5-Star_rating_system.png')}}" height="100" width="100"/> 
+                  {% endif %}
+                  {% if wish['rating'] == "2" %}
+                  <img class="twostarrating" src="{{url_for('static', filename='5-Star_rating_system.png')}}" height="100" width="100"/> 
+                  {% endif %}
+                  {% if wish['rating'] == "3" %}
+                  <img class="threestarrating" src="{{url_for('static', filename='5-Star_rating_system.png')}}" height="100" width="100"/> 
+                  {% endif %}
+                  {% if wish['rating'] == "4" %}
+                  <img class="fourstarrating" src="{{url_for('static', filename='5-Star_rating_system.png')}}" height="100" width="100"/> 
+                  {% endif %}
+                  {% if wish['rating'] == "5" %}
+                  <img class="fivestarrating" src="{{url_for('static', filename='5-Star_rating_system.png')}}" height="100" width="100"/> 
+                  {% endif %}
+                </div>
+              </td></tr>
+              <tr><td colspan="3"><hr /></td></tr>
+            {% endif %}
+          {% endfor %}
+      </table>
+      </div>
+    </div>
+    <div>&nbsp;</div>
+    </div>
+  </div>
+{% endblock %}
