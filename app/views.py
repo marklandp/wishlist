@@ -8,8 +8,8 @@ This file creates your application.
 
 from app import app, db, mail
 from flask import Flask, Response, render_template, request, redirect, url_for, flash, jsonify, session, abort, g
-from flask.ext.login import  LoginManager, login_user , logout_user , current_user , login_required
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask_login import  LoginManager, login_user , logout_user , current_user , login_required
+from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Message
 from app.models import User_info, Wishes
 from datetime import *
@@ -20,9 +20,9 @@ from sqlalchemy.sql.expression import func
 import os
 import time
 from bs4 import BeautifulSoup
-import urlparse
+import urllib.parse
 import requests
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 
 
 ###
@@ -175,10 +175,10 @@ def addWish():
         'Accept-Encoding': 'none',
         'Accept-Language': 'en-US,en;q=0.8',
         'Connection': 'keep-alive'}
-      req = urllib2.Request(url, headers=hdr)
-      page = urllib2.build_opener(urllib2.HTTPCookieProcessor).open(req).read()
+      req = urllib.request.Request(url, headers=hdr)
+      page = urllib.request.build_opener(urllib.request.HTTPCookieProcessor).open(req).read()
     else:
-      page = page = urllib2.build_opener(urllib2.HTTPCookieProcessor).open(url).read()
+      page = page = urllib.request.build_opener(urllib.request.HTTPCookieProcessor).open(url).read()
     soup = BeautifulSoup(page)
     title = (soup.find('meta', property='og:title') or 
                     soup.find('meta', attrs={'name': 'title'}))

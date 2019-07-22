@@ -19,6 +19,7 @@ var
 develop-eggs
 .installed.cfg
 .c9
+*.pyc
 
 # Pip Installer Log
 pip-log.txt

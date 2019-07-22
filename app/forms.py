@@ -1,9 +1,9 @@
-from flask.ext.wtf import Form
+from flask_wtf import Form
 from wtforms.fields import TextField, IntegerField, SelectField, FileField, PasswordField, SubmitField, TextAreaField
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import Required, Length, EqualTo, ValidationError, Email, NumberRange
 from app.models import User_info
-from flask.ext.login import LoginManager, login_required, login_user, logout_user, current_user
+from flask_login import LoginManager, login_required, login_user, logout_user, current_user
 from app import db
 
 class Unique(object):
@@ -12,7 +12,7 @@ class Unique(object):
         self.model = model
         self.field = field
         if not message:
-            message = u'Email already exists'
+            message = 'Email already exists'
         self.message = message
 
     def __call__(self, form, field):         

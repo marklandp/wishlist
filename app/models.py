@@ -1,5 +1,5 @@
 from . import db
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 
 class User_info(db.Model):
@@ -39,7 +39,7 @@ class User_info(db.Model):
       return False
  
   def get_id(self):
-      return unicode(self.id)
+      return str(self.id)
 
   def __repr__(self):
     return '<User %r>' % self.username
