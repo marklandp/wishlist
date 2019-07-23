@@ -4,8 +4,8 @@ env
 .Python
 include
 lib
-migrations
-.vscode
+migrations/
+.vscode/
 
 # Python Packages
 *.egg
