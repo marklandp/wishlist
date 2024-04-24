@@ -9,7 +9,7 @@ from flask_migrate import Migrate
 app = Flask(__name__)
 app.config.from_object('config')
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://ztlngjrnvziegs:Ev9h62QPQYd0zyiTZipZsGbmDD@ec2-54-204-35-248.compute-1.amazonaws.com:5432/dfqlm57b31f0ab'
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://iaioceqw:TrcP47je0Jh47zthPf_pvkgwfLY924ge@raja.db.elephantsql.com:5432/iaioceqw"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://iaioceqw:TrcP47je0Jh47zthPf_pvkgwfLY924ge@raja.db.elephantsql.com:5432/iaioceqw"
 db = SQLAlchemy(app)
 Migrate = Migrate(app, db)
 mail = Mail(app)

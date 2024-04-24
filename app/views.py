@@ -7,21 +7,22 @@ This file creates your application.
 """
 
 from app import app, db, mail
-from flask import Flask, Response, render_template, request, redirect, url_for, flash, jsonify, session, abort, g
+# from flask import Flask, Response, render_template, request, redirect, url_for, flash, jsonify, session, abort, g
+from flask import render_template, request, redirect, url_for, flash, g
 from flask_login import  LoginManager, login_user , logout_user , current_user , login_required
-from flask_sqlalchemy import SQLAlchemy
+# from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Message
 from app.models import User_info, Wishes
 from datetime import *
 from .forms import RegistrationForm, SigninForm, WishForm, ShareForm
-import json
+# import json
 from werkzeug.utils import secure_filename
 from sqlalchemy.sql.expression import func
 import os
-import time
+# import time
 from bs4 import BeautifulSoup
 import urllib.parse
-import requests
+# import requests
 import urllib.request, urllib.error, urllib.parse
 
 
@@ -58,7 +59,7 @@ def register():
   """Render the register page"""
   form = RegistrationForm()
     
-  if form.validate_on_submit():
+  if request.method == 'POST' and form.validate():
     fname = request.form['fname']
     lname = request.form['lname']
     email = request.form['email']

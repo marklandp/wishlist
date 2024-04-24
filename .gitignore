@@ -6,6 +6,7 @@ include
 lib
 migrations/
 .vscode/
+requirements copy.txt
 
 # Python Packages
 *.egg
@@ -22,6 +23,8 @@ develop-eggs
 .installed.cfg
 .c9
 *.pyc
+__pycache__
+app/__pycache__
 
 # Pip Installer Log
 pip-log.txt
