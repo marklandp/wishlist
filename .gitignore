@@ -8,6 +8,7 @@ migrations/
 .vscode/
 requirements copy.txt
 config.py
+app/__init__.py
 
 # Python Packages
 *.egg
