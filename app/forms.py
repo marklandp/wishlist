@@ -1,10 +1,10 @@
-from flask_wtf import Form
-from wtforms.fields import TextField, IntegerField, SelectField, FileField, PasswordField, SubmitField, TextAreaField
-from wtforms.fields.html5 import EmailField
-from wtforms.validators import Required, Length, EqualTo, ValidationError, Email, NumberRange
+from flask_wtf import FlaskForm
+from wtforms.fields import StringField, IntegerField, SelectField, FileField, PasswordField, SubmitField, TextAreaField
+# from wtforms.fields.html5 import EmailField
+from wtforms.validators import InputRequired, Length, EqualTo, ValidationError, Email, NumberRange
 from app.models import User_info
-from flask_login import LoginManager, login_required, login_user, logout_user, current_user
-from app import db
+# from flask_login import LoginManager, login_required, login_user, logout_user, current_user
+# from app import db
 
 class Unique(object):
     """ validator that checks field uniqueness """
@@ -20,27 +20,27 @@ class Unique(object):
         if check:
             raise ValidationError(self.message)
 
-class RegistrationForm(Form):
-  fname = TextField('fname', validators=[Required(message="Required"), Length(min=2, max=79)])
-  lname = TextField('lname', validators=[Required(message="Required"), Length(min=2, max=79)])
-  email = TextField('Email Address', validators=[Length(min=6, max=49), Required("Required"), Email(), Unique(User_info, User_info.email)])
-  confirme = TextField('Confirm Email', validators=[Required(message="Required"), EqualTo('email', message='email doesn\'t match original')])
-  password = PasswordField('New Password', validators=[Required("Required"), Length(min=8, max=100)])
-  confirmp = PasswordField('Confirm Password', validators=[Required(message="Required"),EqualTo('password', message='Password mismatch')])
-  image = FileField('Image', validators=[Required(message="Must upload an image")])
-  age = IntegerField('Age', validators=[Required(message="Required"), NumberRange(min=10,max=85, message="Only 10 - 85 year olds")])
-  sex = SelectField('Sex', choices=[('Male','Boy'),('Female','Girl')], validators=[Required(message="Required")])
+class RegistrationForm(FlaskForm):
+  fname = StringField('fname', validators=[InputRequired(message="Required"), Length(min=2, max=79)])
+  lname = StringField('lname', validators=[InputRequired(message="Required"), Length(min=2, max=79)])
+  email = StringField('Email Address', validators=[Length(min=6, max=49), InputRequired("Required"), Email(), Unique(User_info, User_info.email)])
+  confirme = StringField('Confirm Email', validators=[InputRequired(message="Required"), EqualTo('email', message='email doesn\'t match original')])
+  password = PasswordField('New Password', validators=[InputRequired("Required"), Length(min=8, max=100)])
+  confirmp = PasswordField('Confirm Password', validators=[InputRequired(message="Required"),EqualTo('password', message='Password mismatch')])
+  image = FileField('Image', validators=[InputRequired(message="Must upload an image")])
+  age = IntegerField('Age', validators=[InputRequired(message="Required"), NumberRange(min=10,max=85, message="Only 10 - 85 year olds")])
+  sex = SelectField('Sex', choices=[('Male','Boy'),('Female','Girl')], validators=[InputRequired(message="Required")])
 
-class SigninForm(Form):
-  email = TextField("Email",  validators=[Required("Please enter your email address."), Email("Incorrect E-Mail format.")])
-  password = PasswordField('Password', validators=[Required("Please enter a password.")])
+class SigninForm(FlaskForm):
+  email = StringField("Email",  validators=[InputRequired("Please enter your email address."), Email("Incorrect E-Mail format.")])
+  password = PasswordField('Password', validators=[InputRequired("Please enter a password.")])
   submit = SubmitField("Sign In")
    
   def __init__(self, *args, **kwargs):
-    Form.__init__(self, *args, **kwargs)
+    FlaskForm.__init__(self, *args, **kwargs)
  
   def validate(self):
-    if not Form.validate(self):
+    if not FlaskForm.validate(self):
       return False
      
     user = User_info.query.filter_by(email = self.email.data.lower()).first()
@@ -53,19 +53,16 @@ class SigninForm(Form):
       self.password.errors.append("Invalid Password")
       return False
       
-class WishForm(Form):
-  url = TextField('URL',  validators=[Required("Please enter web address.")])
+class WishForm(FlaskForm):
+  url = StringField('URL',  validators=[InputRequired("Please enter web address.")])
   
   def __init__(self, *args, **kwargs):
-    Form.__init__(self, *args, **kwargs)
+    FlaskForm.__init__(self, *args, **kwargs)
     
     
-class ShareForm(Form):
-  name = TextField('Name', validators=[Required()])
-  email = TextField('Email', validators=[Required(), Email()])
-  subject = TextField('Subject', validators=[Required()])
-  message = TextAreaField('Message', validators=[Required()])
+class ShareForm(FlaskForm):
+  name = StringField('Name', validators=[InputRequired()])
+  email = StringField('Email', validators=[InputRequired(), Email()])
+  subject = StringField('Subject', validators=[InputRequired()])
+  message = TextAreaField('Message', validators=[InputRequired()])
   send = SubmitField('Send')
-     
-      
-  

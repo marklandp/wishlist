@@ -7,14 +7,14 @@ ALLOWED_EXTENSIONS = set(['jpg', 'png', 'jpeg', 'gif'])
 # MAIL_PORT = 465
 # MAIL_USE_TLS = False
 # MAIL_USE_SSL = True
-# MAIL_USERNAME = 'mastest2310@gmail.com' 
-# MAIL_PASSWORD = 'evjhagkdxisqtsvd'
+# MAIL_USERNAME = 'email' 
+# MAIL_PASSWORD = 'app-password'
 
 MAIL_SERVER = 'smtp.gmail.com'
 MAIL_PORT = 587
 MAIL_USE_TLS = True
 MAIL_USE_SSL = False
 # MAIL_DEBUG = app.debug
-MAIL_USERNAME = 'marklandpayne@gmail.com'
-MAIL_PASSWORD = 'ggektgkibtvoitoh'
+MAIL_USERNAME = 'email'
+MAIL_PASSWORD = 'app-passsword'
 # DEFAULT_MAIL_SENDER : default None

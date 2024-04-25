@@ -1,5 +1,5 @@
 from . import db
-from flask_sqlalchemy import SQLAlchemy
+# from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 
 class User_info(db.Model):
@@ -8,7 +8,7 @@ class User_info(db.Model):
   lname = db.Column(db.String(80))
   image = db.Column(db.String(255))
   email = db.Column(db.String(50), unique=True)
-  password = db.Column(db.String(100))
+  password = db.Column(db.String(255))
   age = db.Column(db.Integer)
   sex = db.Column(db.String(8))
   datejoined = db.Column(db.DateTime)
@@ -46,8 +46,8 @@ class User_info(db.Model):
     
 class Wishes(db.Model):
   id = db.Column(db.Integer, primary_key=True)
-  title = db.Column(db.String(150))
-  description = db.Column(db.String(200))
+  title = db.Column(db.String(255))
+  description = db.Column(db.String(255))
   thumbnail = db.Column(db.String(255))
   user = db.Column(db.String(50), db.ForeignKey("user_info.email"))
   url = db.Column(db.String(255))

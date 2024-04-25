@@ -65,7 +65,7 @@ $(document).ready( function() {
                         {% endfor %}
                       {% endif %}
                     {% endwith %}
-                    <form role="form" action="{{ url_for('register') }}" method="post" id="register-form">
+                    <form role="form" action="{{ url_for('register') }}" method="post" id="register-form" enctype="multipart/form-data">
                       {{ form.hidden_tag() }}
                         <div class="form-group">
                             <div class="input-group">
