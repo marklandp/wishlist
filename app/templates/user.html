@@ -47,7 +47,7 @@
     </p>
     </div>
     <div class="p_content wishlist">
-    <h1 style="width:98%;">{{user['fname']}}'s Wishlist<span style="float:right;"><a id="showbought" class="flashk" href="javascript:void(0);"><em>View bought items</em></a><a class="fancy flashk fancybox.ajax" href="{{url_for('about')}}"><em>Instructions</em></a><a class="fancy" href="#addwish"><img title="Click to add new wish" src="/static/product-fav-icon.png" width="30"></a></span></h1>
+    <h1 style="padding-top: 10px;">{{user['fname']}}'s Wishlist<span style="float:right;"><a id="showbought" class="flashk btn btn-danger btn-md" href="javascript:void(0);"><em>View bought items</em></a><a class="fancy flashk fancybox.ajax btn btn-danger btn-md" href="{{url_for('about')}}"><em>Instructions</em></a><a class="fancy flashk" href="#addwish"><img title="Click to add new wish" src="/static/product-fav-icon.png" width="30"></a></span></h1>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
       {% for message in messages %}
