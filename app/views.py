@@ -22,7 +22,6 @@ import os
 # import time
 from bs4 import BeautifulSoup
 import urllib.parse
-# import requests
 import urllib.request, urllib.error, urllib.parse
 
 
@@ -180,7 +179,8 @@ def addWish():
       page = urllib.request.build_opener(urllib.request.HTTPCookieProcessor).open(req).read()
     else:
       page = page = urllib.request.build_opener(urllib.request.HTTPCookieProcessor).open(url).read()
-    soup = BeautifulSoup(page)
+
+    soup = BeautifulSoup(page, features="html5lib")
     title = (soup.find('meta', property='og:title') or 
                     soup.find('meta', attrs={'name': 'title'}))
     if title and title['content']:
@@ -194,7 +194,7 @@ def addWish():
       description = desc['content']
     else:
       description = "I want this item"
-      
+
     og_image = (soup.find('meta', property='og:image') or 
                         soup.find('meta', attrs={'name': 'og:image'}))
     if og_image and og_image['content']:

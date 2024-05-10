@@ -3,7 +3,7 @@
 
 {% block js %}
 <script>
-  window.fbAsyncInit = function() {
+  /* window.fbAsyncInit = function() {
     FB.init({
       appId      : '261930147473251',
       xfbml      : true,
@@ -18,7 +18,7 @@
   js = d.createElement(s); js.id = id;
   js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.6&appId=261930147473251";
   fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
+}(document, 'script', 'facebook-jssdk')); */
 
 !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
 
@@ -42,22 +42,16 @@
   <div class="p_content content">
     <p>
       Email: {{user['email']}}<br />
-      Sex: {{user['sex']}}<br />
+      Gender: {{user['sex']}}<br />
       Age: {{user['age']}}<br />
     </p>
     </div>
     <div class="p_content wishlist">
-    <h1 style="padding-top: 10px;">{{user['fname']}}'s Wishlist<span style="float:right;"><a id="showbought" class="flashk btn btn-danger btn-md" href="javascript:void(0);"><em>View bought items</em></a><a class="fancy flashk fancybox.ajax btn btn-danger btn-md" href="{{url_for('about')}}"><em>Instructions</em></a><a class="fancy flashk" href="#addwish"><img title="Click to add new wish" src="/static/product-fav-icon.png" width="30"></a></span></h1>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      {% for message in messages %}
-        <div class="alert alert-success alert-dismissable" style="width:98%;">
-          <a class="close" href="javascript:void(0);">×</a>
-            {{message}}
-        </div>
-      {% endfor %}
-    {% endif %}
-    {% endwith %}
+    <h1 style="padding-top: 10px;">{{user['fname']}}'s Wishlist<span style="float:right;">
+      <a id="showbought" class="flashk btn btn-danger btn-md" href="javascript:void(0);"><em>View bought items</em></a>
+      <a class="fancy flashk fancybox.ajax btn btn-danger btn-md" href="{{url_for('about')}}"><em>Instructions</em></a>
+      <a class="fancy flashk" href="#addwish"><img title="Click to add new wish" src="/static/product-fav-icon.png"></a></span>
+    </h1>
     <div id ="addwish" style="display:none;">
     <form action="{{ url_for('addWish') }}" method="post">
       {{ form.hidden_tag() }}
@@ -75,19 +69,34 @@
       </form>
       </div>
       {% if form.url.errors|length == 0 and error != "User has no wishes" %}
-      <div class="share">
+      <div class="share" style="display:none;">
       <div class="g-plus" data-action="share" data-height="24" data-href="{{url_for('profile', id=g.user.id)}}"></div>
       </div>
       <div
       class="fb-like share"
       data-share="true"
       data-width="250"
-      data-show-faces="true" style="float:left; margin:10px;">
+      data-show-faces="true" style="float:left; margin:10px; display: none;">
       </div>
       <div class="share"><a href="https://twitter.com/intent/tweet?button_hashtag=wishlistSystem&text=Take%20a%20look%20at%20my%20wishlist" class="twitter-hashtag-button" data-size="large" data-url="http://info3180-project4-marklandp.c9users.io:8080/api/user/{{g.user.id}}/wishlist" data-dnt="true">Tweet #wishlistSystem</a></div>
-      <div class="share"> <button id="share-btn" class="btn btn-danger btn-md fancy" href="#share">Share wishlist</button> </div>
+      <div class="share"><button id="share-btn" class="btn btn-danger btn-md fancy" href="#share" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-arrow-up" viewBox="0 0 16 16">
+          <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4.5a.5.5 0 0 1-1 0V5.383l-7 4.2-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h5.5a.5.5 0 0 1 0 1H2a2 2 0 0 1-2-1.99zm1 7.105 4.708-2.897L1 5.383zM1 4v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1"/>
+          <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.354-5.354 1.25 1.25a.5.5 0 0 1-.708.708L13 12.207V14a.5.5 0 0 1-1 0v-1.717l-.28.305a.5.5 0 0 1-.737-.676l1.149-1.25a.5.5 0 0 1 .722-.016"/>
+        </svg>
+        Share wishlist</button></div>
      <hr style="width:95%; clear:left;"/>
      {% endif %}
+     {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-success alert-dismissable" style="width:98%;">
+            <a class="close" href="javascript:void(0);">×</a>
+              {{message}}
+          </div>
+        {% endfor %}
+      {% endif %}
+      {% endwith %}
      <form class="form-inline" role="form" id="updateView" method="POST" action="{{url_for('profile', id=g.user.id)}}">
       <div class="form-group">
         <label for="category">Select filter category</label>
@@ -113,7 +122,7 @@
           {% if wish['bought'] == "0" or wish['bought'] is none %}
             <div class="needed">
             <div id="{{wish['id']}}" class="ih-item square colored effect9 right_to_left"><a href="{{wish['url']}}" target="_blank">
-            <div class="img"><img src="{{wish['thumbnail']}}" alt="img" height="235" width="316"></div>
+            <div class="img"><img src="{{wish['thumbnail']}}" alt="img" height="285" width="316"></div>
             <div class="info">
             <div class="info-back">
               <h3>{{wish['title']}}</h3>
@@ -158,7 +167,7 @@
           {% if wish['bought'] == "1" %}
             <div class="bought" style="display:none;">
             <div id="{{wish['id']}}" class="ih-item square colored effect9 right_to_left red"><a href="{{wish['url']}}" target="_blank">
-            <div class="img"><img src="{{wish['thumbnail']}}" alt="img" height="235" width="316"></div>
+            <div class="img"><img src="{{wish['thumbnail']}}" alt="img" height="285" width="316"></div>
             <div class="info">
             <div class="info-back">
               <h3>{{wish['title']}}</h3>
